@@ -11,12 +11,12 @@ import (
 )
 
 type CoordinatesResponse []struct {
-	Name       string   `json:"name"`
-	LocalNames struct{} `json:"local_names"`
-	Lat        float64  `json:"lat"`
-	Lon        float64  `json:"lon"`
-	Country    string   `json:"country"`
-	State      string   `json:"state,omitempty"`
+	Name       string            `json:"name"`
+	LocalNames map[string]string `json:"local_names"`
+	Lat        float64           `json:"lat"`
+	Lon        float64           `json:"lon"`
+	Country    string            `json:"country"`
+	State      string            `json:"state,omitempty"`
 }
 
 type Coordinates struct {
@@ -47,7 +47,7 @@ func getCoordinates(city string) (Coordinates, error) {
 	coordinates := Coordinates{
 		Longitude: data[0].Lon,
 		Latitude:  data[0].Lat,
-		City:      data[0].Name,
+		City:      data[0].LocalNames["ru"],
 	}
 	return coordinates, nil
 
