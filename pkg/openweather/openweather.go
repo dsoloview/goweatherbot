@@ -2,6 +2,7 @@ package openweather
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/dsoloview/gobot/pkg/helpers"
 	"io"
 	"io/ioutil"
@@ -11,12 +12,7 @@ import (
 )
 
 const (
-	WEATHER_URL = "https://api.openweathermap.org/data/2.5/weather?"
-	LATITUDE    = "lat="
-	LONGITUDE   = "&lon="
-	APIKEY      = "&appid="
-	LANG        = "&lang=ru"
-	UNITS       = "&units=metric"
+	WEATHER_URL_TEMPLATE = "https://api.openweathermap.org/data/2.5/weather?lat=%v&lon=%v&lang=ru&units=metric&appid=%v"
 )
 
 type WeatherResponse struct {
@@ -75,8 +71,7 @@ func GetWeather(location string) (*Weather, error) {
 	if err != nil {
 		return nil, err
 	}
-	url := WEATHER_URL + LATITUDE + helpers.Floattostr(coordinates.Latitude) + LONGITUDE + helpers.Floattostr(coordinates.Longitude) + UNITS + LANG + APIKEY + os.Getenv("OPENWEATHER_API")
-
+	url := fmt.Sprintf(WEATHER_URL_TEMPLATE, helpers.Floattostr(coordinates.Latitude), helpers.Floattostr(coordinates.Longitude), os.Getenv("OPENWEATHER_API"))
 	resp := makeGetRequest(url)
 
 	weatherResponse := getWeatherJson(&resp)

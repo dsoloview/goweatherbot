@@ -25,11 +25,12 @@ type Coordinates struct {
 	City      string
 }
 
-const COORDINATES_URL = "http://api.openweathermap.org/geo/1.0/direct?q="
+const COORDINATES_URL_TEMPLATE = "http://api.openweathermap.org/geo/1.0/direct?q=%v&limit=1&appid=%v"
 
 func getCoordinates(city string) (Coordinates, error) {
 
-	resp, err := http.Get(COORDINATES_URL + city + "&limit=1" + APIKEY + os.Getenv("OPENWEATHER_API"))
+	url := fmt.Sprintf(COORDINATES_URL_TEMPLATE, city, os.Getenv("OPENWEATHER_API"))
+	resp, err := http.Get(url)
 	if err != nil {
 		log.Fatalln(err)
 	}
