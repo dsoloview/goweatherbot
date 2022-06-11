@@ -45,12 +45,11 @@ func getCoordinates(city string) (Coordinates, error) {
 		return Coordinates{}, fmt.Errorf("city not found")
 	}
 
-	coordinates := Coordinates{
+	return Coordinates{
 		Longitude: data[0].Lon,
 		Latitude:  data[0].Lat,
 		City:      data[0].LocalNames["ru"],
-	}
-	return coordinates, nil
+	}, nil
 
 }
 
