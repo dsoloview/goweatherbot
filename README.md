@@ -1,6 +1,6 @@
 # goweatherbot
 
-Погодный Telegram бот на golang. 
+Погодный Telegram бот на golang. Умеет показывать погоду по введенному городу, работает с openweahermap
 
 ### Установка
 Скопировать .env.example в .env и задать там
