@@ -1,0 +1,15 @@
+version: "3"
+
+networks:
+  webapp:
+
+services:
+  app:
+    build: ./
+    container_name: ${APP_NAME}_app
+    ports:
+      - "80:80"
+    volumes:
+      - ./:/app
+    networks:
+      - webapp
