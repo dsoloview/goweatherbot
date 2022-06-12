@@ -1,6 +1,7 @@
 package main
 
 import (
+	mongoRepo "github.com/dsoloview/gobot/pkg/mongo"
 	"github.com/dsoloview/gobot/pkg/telegram"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"github.com/joho/godotenv"
@@ -20,9 +21,11 @@ func main() {
 	if err != nil {
 		log.Panic(err)
 	}
+
+	database := mongoRepo.MongoInit()
 	bot.Debug = false
 
-	telegramBot := telegram.NewBot(bot)
+	telegramBot := telegram.NewBot(bot, database)
 	if err := telegramBot.Start(); err != nil {
 		log.Fatal(err)
 	}
